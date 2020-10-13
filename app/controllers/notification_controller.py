@@ -1,8 +1,9 @@
-from models.pest import MongoDB
+from models.notification import MongoDB
+import smtplib
 
 
-def save_pest_request(request):
-    fields = ['type', 'winery']
+def save_notification_request(request):
+    fields = ['type', 'winery', 'sender', 'password']
 
     if not all(field in request.keys() for field in fields):
         return {
@@ -19,13 +20,12 @@ def save_pest_request(request):
             "erro": "Informe a vinícola a ser notificada!"
         }, 400
 
-    
-    # db = MongoDB()
-    # connection_is_alive = db.test_connection()
+    message = "Subject: Notification\n\nteste"
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server.ehlo()
+    server.login(request['sender'], request['password'])
+    server.sendmail(request['sender'], ['lucasvitorifg@gmail.com'], message)
 
-    # if connection_is_alive:
-    #     if(db.insert_one(request)):
-    #         return {"message": "Sucess"}, 200
-    # db.close_connection()
-
-    return {'error': 'Something gone wrong'}, 500
+    return {
+        "erro": "Informe a vinícola a ser notificada!"
+    }, 200
