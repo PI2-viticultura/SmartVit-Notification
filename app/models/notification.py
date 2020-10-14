@@ -23,9 +23,9 @@ class MongoDB():
     def close_connection(self):
         self.client.close()
 
-    def get_collection(self):
+    def get_collection(self, collection='notifications'):
         db = self.client['smart-dev']
-        collection = db['notifications']
+        collection = db[collection]
         return collection
 
     def insert_one(self, body):
@@ -42,8 +42,8 @@ class MongoDB():
             collection = self.get_collection()
 
             collection.update_one(
-                {"id": body["id"]},
-                {"$set": {body}}
+                {"_id": body["_id"]},
+                {"$set": body}
             )
 
         except Exception as err:
@@ -52,7 +52,7 @@ class MongoDB():
     def delete_one(self, identifier):
         try:
             collection = self.get_collection()
-            res = collection.delete_one({"id": identifier})
+            res = collection.delete_one({"_id": identifier})
             if res.deleted_count == 1:
                 print(f'Praga removida com sucesso {identifier}'
                       'removida com sucesso')
@@ -62,7 +62,6 @@ class MongoDB():
         except Exception as err:
             print(f'Erro ao deletar no banco de dados: {err}')
 
-    def get_one(self, identifier):
-        collection = self.get_collection()
-        document = collection.find_one({"id": identifier})
-        return document
+    def get_one(self, identifier, collection='notifications'):
+        collection = self.get_collection(collection)
+        return collection.find_one({"_id": identifier})
