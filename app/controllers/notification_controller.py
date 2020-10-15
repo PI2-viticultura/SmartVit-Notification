@@ -60,7 +60,7 @@ def save_notification_request(request):
 
     if 'responsibles' not in winery.keys():
         return {"erro": "A vinícola não possui responsaveis!"}, 404
-    
+
     responsibles = winery['responsibles']
     resposible_emails = []
     now = datetime.now()
@@ -80,7 +80,7 @@ def save_notification_request(request):
         db.insert_one(notification)
 
     send_email(request, resposible_emails)
-    
+
     return {"msg": "Notificação cadastrada!"}, 200
 
 
@@ -93,7 +93,7 @@ def mark_as_read(notification_id):
 
         if not notification:
             return {"erro": "Notificação não encontrada!"}, 404
-        
+
         notification["read"] = True
         updated = db.update_one(notification)
         if updated:
