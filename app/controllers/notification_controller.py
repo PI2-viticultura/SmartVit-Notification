@@ -65,7 +65,7 @@ def save_notification_request(request):
             resposible_emails.append(responsible['email'])
 
         notification = dict()
-        notification['date'] = now
+        notification['date'] = now.strftime("%m/%d/%Y, %H:%M:%S")
         notification['type'] = request["type"]
         notification['message'] = request["message"]
         notification['winery'] = request["winery"]
