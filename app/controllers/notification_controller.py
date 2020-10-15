@@ -1,7 +1,22 @@
 from models.notification import MongoDB
 from datetime import datetime
 from bson import ObjectId
+from bson.json_util import dumps
 import smtplib
+
+
+def retrieve_notification_request(user_id):
+    db = MongoDB()
+    connection_is_alive = db.test_connection()
+
+    if connection_is_alive:
+        notification = db.get_notification_by_user_id(user_id)
+
+        return dumps(notification), 200
+
+    db.close_connection()
+
+    return {'error': 'Something gone wrong'}, 500
 
 
 def save_notification_request(request):
