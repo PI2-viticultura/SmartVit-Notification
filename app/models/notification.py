@@ -37,14 +37,15 @@ class MongoDB():
             print(f'Erro ao inserir no banco de dados: {err}')
             return False
 
-    def update_one(self, document, body):
+    def update_one(self, body, collection='notifications'):
         try:
-            collection = self.get_collection()
+            collection = self.get_collection(collection)
 
             collection.update_one(
                 {"_id": body["_id"]},
                 {"$set": body}
             )
+            return True
 
         except Exception as err:
             print(f'Erro ao atualizar no banco de dados: {err}')

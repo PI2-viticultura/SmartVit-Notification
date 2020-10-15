@@ -20,7 +20,7 @@ def retrieve_notification_request(user_id):
 
 
 def save_notification_request(request):
-    fields = ['type', 'winery', 'sender', 'password', 'message']
+    fields = ['type', 'winery', 'sender', 'password', 'message', 'title']
 
     if not all(field in request.keys() for field in fields):
         return {
@@ -30,6 +30,11 @@ def save_notification_request(request):
     if not request["type"]:
         return {
             "erro": "Informe o tipo de notificação!"
+        }, 400
+
+    if not request["title"]:
+        return {
+            "erro": "Informe o título da notificação!"
         }, 400
 
     if not request["message"]:
@@ -67,6 +72,7 @@ def save_notification_request(request):
         notification = dict()
         notification['date'] = now.strftime("%m/%d/%Y, %H:%M:%S")
         notification['type'] = request["type"]
+        notification['title'] = request["title"]
         notification['message'] = request["message"]
         notification['winery'] = request["winery"]
         notification['user'] = responsible["_id"]
@@ -76,6 +82,24 @@ def save_notification_request(request):
     send_email(request, resposible_emails)
     
     return {"msg": "Notificação cadastrada!"}, 200
+
+
+def mark_as_read(notification_id):
+    notification_id = ObjectId(notification_id)
+    db = MongoDB()
+    connection_is_alive = db.test_connection()
+    if connection_is_alive:
+        notification = db.get_one(notification_id)
+
+        if not notification:
+            return {"erro": "Notificação não encontrada!"}, 404
+        
+        notification["read"] = True
+        updated = db.update_one(notification)
+        if updated:
+            return {"message": "Success"}, 200
+
+    return {'message': 'Something gone wrong'}, 500
 
 
 def send_email(request, resposible_emails):
