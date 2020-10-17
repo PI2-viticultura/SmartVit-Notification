@@ -15,3 +15,4 @@ requests==2.24.0
 pytest==6.0.2
 python-crontab
 flake8
+coverage
