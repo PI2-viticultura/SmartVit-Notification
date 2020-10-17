@@ -67,6 +67,10 @@ class MongoDB():
         collection = self.get_collection(collection)
         return collection.find_one({"_id": identifier})
 
+    def get_all(self, collection='notifications'):
+        collection = self.get_collection(collection)
+        return collection.fin()
+
     def get_notification_by_user_id(self, identifier):
         collection = self.get_collection('notifications')
         return collection.find({"user": identifier, "read": False})

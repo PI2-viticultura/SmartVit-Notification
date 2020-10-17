@@ -3,6 +3,7 @@ from datetime import datetime
 from bson import ObjectId
 from bson.json_util import dumps
 import smtplib
+import os
 
 
 def retrieve_notification_request(user_id):
@@ -20,7 +21,7 @@ def retrieve_notification_request(user_id):
 
 
 def save_notification_request(request):
-    fields = ['type', 'winery', 'sender', 'password', 'message', 'title']
+    fields = ['type', 'winery', 'message', 'title']
 
     if not all(field in request.keys() for field in fields):
         return {
@@ -107,5 +108,5 @@ def send_email(request, resposible_emails):
         message = "Subject: Notification\n\n" + request['message']
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.ehlo()
-        server.login(request['sender'], request['password'])
-        server.sendmail(request['sender'], resposible_emails, message)
+        server.login(os.getenv('EMAIL_USER'), os.getenv('EMAIL_PASSWORD'))
+        server.sendmail(os.getenv('EMAIL_USER'), resposible_emails, message)
