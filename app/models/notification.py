@@ -12,8 +12,9 @@ class MongoDB():
         else:
             self.params = load_database_params()
             try:
-                self.client = pymongo.MongoClient(**self.params,
-                                                serverSelectionTimeoutMS=10)
+                self.client = pymongo.MongoClient(
+                    **self.params, serverSelectionTimeoutMS=10
+                )
             except Exception as err:
                 print(f'Erro ao conectar no banco de dados: {err}')
 
