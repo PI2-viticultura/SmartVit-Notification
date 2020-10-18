@@ -16,7 +16,7 @@ def load_database_params():
         "authSource": os.getenv("authSource", DATABASE_CONFIG["authSource"]),
         "authMechanism": os.getenv(
             "authMechanism", DATABASE_CONFIG["authMechanism"]
-            )
+            )l
     }
 
     return params

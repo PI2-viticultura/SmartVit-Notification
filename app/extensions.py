@@ -18,3 +18,4 @@ else:
     client = pymongo.MongoClient(
         **load_database_params(), serverSelectionTimeoutMS=10
     )
+
