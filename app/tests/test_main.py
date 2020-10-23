@@ -1,11 +1,10 @@
-# Importamos a biblioteca de testes
 import unittest
 
 
 class TestHello(unittest.TestCase):
+
     def test_service_exist(self):
-        test = ['item']
-        self.assertNotEqual(None, test)
+        self.assertNotEqual(5, 4)
 
 
 if __name__ == '__main__':

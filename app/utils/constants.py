@@ -4,5 +4,6 @@ DATABASE_CONFIG = {
     "DB_USERNAME": "admin",
     "DB_PASSWORD": "password",
     "authSource": "",
-    "authMechanism": "SCRAM-SHA-256"
+    "authMechanism": "SCRAM-SHA-256",
+    "collection": "notifications"
 }
