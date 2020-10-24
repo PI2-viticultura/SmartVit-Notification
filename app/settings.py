@@ -12,11 +12,10 @@ def load_database_params():
         "host": os.getenv("DB_HOST", DATABASE_CONFIG["DB_HOST"]),
         "port": port,
         "username": os.getenv("DB_USERNAME", DATABASE_CONFIG["DB_USERNAME"]),
-        "password": os.getenv("DB_PASSWORD", DATABASE_CONFIG["DB_PASSWORD"]),
+        "password": os.getenv("MONGOPASSWORD", DATABASE_CONFIG["DB_PASSWORD"]),
         "authSource": os.getenv("authSource", DATABASE_CONFIG["authSource"]),
         "authMechanism": os.getenv(
-            "authMechanism", DATABASE_CONFIG["authMechanism"]
-        )
+            "authMechanism", DATABASE_CONFIG["authMechanism"])
     }
 
     return params
