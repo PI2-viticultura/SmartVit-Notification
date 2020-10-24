@@ -33,7 +33,7 @@ jobs:
         - flake8
         - coverage run -m pytest
         - coverage xml
-        - behave
+        - cd app/ && behave
     - stage: deploy-dev
       script:
         - export MONGOPASSWORD=${MONGOPASSWORD}
