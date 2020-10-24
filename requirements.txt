@@ -13,4 +13,7 @@ six==1.15.0
 Werkzeug==1.0.1
 requests==2.24.0
 pytest==6.0.2
+python-crontab
+flake8
+coverage
 behave==1.2.6
