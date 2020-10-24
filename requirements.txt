@@ -5,7 +5,7 @@ Flask==1.1.2
 Flask-Cors==3.0.9
 Flask-PyMongo==2.3.0
 itsdangerous==1.1.0
-Jinja2==2.10.1
+Jinja2
 MarkupSafe==1.1.1
 pycparser==2.20
 pymongo[tls,srv]==3.11.0
@@ -17,3 +17,4 @@ python-crontab
 flake8
 coverage
 behave==1.2.6
+gunicorn
