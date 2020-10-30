@@ -16,4 +16,5 @@ pytest==6.0.2
 python-crontab
 flake8
 coverage
+behave==1.2.6
 gunicorn
