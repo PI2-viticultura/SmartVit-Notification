@@ -19,6 +19,7 @@ def retrieve_notification_request(user_id):
 
     return {'error': 'Something gone wrong'}, 500
 
+
 def save_notification_request_by_user(request):
     now = datetime.now()
 
@@ -27,8 +28,8 @@ def save_notification_request_by_user(request):
 
     db = MongoDB()
     connection_is_alive = db.test_connection()
-    
-    if connection_is_alive: 
+
+    if connection_is_alive:
         for responsible_id in responsibles_ids:
 
             notification = dict()
@@ -42,9 +43,10 @@ def save_notification_request_by_user(request):
             db.insert_one(notification)
 
         send_email(request, responsibles_emails)
-    else: 
+    else:
         return {"erro": "Erro ao conectar no banco de dados!"}, 500
     return {"msg": "Notificação cadastrada!"}, 200
+
 
 def save_notification_request(request):
     fields = ['type', 'winery', 'message', 'title']

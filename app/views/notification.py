@@ -20,6 +20,7 @@ def notification_get(user_id):
 def notification_read(notification_id):
     return controller.mark_as_read(notification_id)
 
+
 @app.route("/user-notification", methods=["POST"])
 def notification_user():
     return controller.save_notification_request_by_user(request.json)
