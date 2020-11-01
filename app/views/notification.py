@@ -24,3 +24,8 @@ def notification_read(notification_id):
 @app.route("/user-notification", methods=["POST"])
 def notification_user():
     return controller.save_notification_request_by_user(request.json)
+
+
+@app.route("/contract-notification", methods=["POST"])
+def notification_contract():
+    return controller.save_notification_request_by_contract(request.json)
