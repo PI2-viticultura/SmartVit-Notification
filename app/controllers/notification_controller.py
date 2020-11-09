@@ -48,6 +48,44 @@ def save_notification_request_by_user(request):
     return {"msg": "Notificação cadastrada!"}, 200
 
 
+def save_notification_request_by_contract(request):
+    db = MongoDB()
+    connection_is_alive = db.test_connection()
+    if connection_is_alive:
+        contract_id = ObjectId(request['contract'])
+        contract = db.get_one(contract_id, 'contract')
+
+        if not contract:
+            return {"erro": "Contrato não encontrado!"}, 404
+    else:
+        return {"erro": "Erro ao conectar no banco de dados!"}, 500
+
+    if 'responsibles' not in contract.keys():
+        return {"erro": "O contrato não possui responsaveis!"}, 404
+
+    responsibles = contract['responsibles']
+    resposible_emails = []
+    now = datetime.now()
+
+    for responsible in responsibles:
+        if 'email' in responsible.keys():
+            resposible_emails.append(responsible['email'])
+
+        notification = dict()
+        notification['date'] = now.strftime("%m/%d/%Y, %H:%M:%S")
+        notification['type'] = request["type"]
+        notification['title'] = request["title"]
+        notification['message'] = request["message"]
+        notification['contract'] = request["contract"]
+        notification['user'] = responsible["_id"]
+        notification['read'] = False
+        db.insert_one(notification)
+
+    send_email(request, resposible_emails)
+
+    return {"msg": "Notificação cadastrada!"}, 200
+
+
 def save_notification_request(request):
     fields = ['type', 'winery', 'message', 'title']
 
