@@ -21,7 +21,7 @@ def step_impl_when(context):
                               "message": "Chuva forte prevista",
                               "winery": "5fad331b38b2670687db57e2"}
     response = requests.post(
-                            'https://smartvit-notification-stg.herokuapp.com/notification',
+                            api_url,
                             json=request_bodies['POST']
                             )
     statuscode = response.status_code

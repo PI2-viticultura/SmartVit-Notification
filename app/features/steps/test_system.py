@@ -17,11 +17,11 @@ def step_impl_given(context):
 @when('o sistema seja ativado')
 def step_impl_when(context):
     request_bodies['POST'] = {"type": "water",
-                              "title": "Sistema de Irrigacao Ativo",
+                              "title": "Sistema de Irrigação",
                               "winery": "5fad331b38b2670687db57e2",
-	                          "message":"Sistema de Irrigacao Ativado"}
+                              "message": "Sistema de Irrigação Ativado"}
     response = requests.post(
-                            'https://smartvit-notification-stg.herokuapp.com/notification',
+                            api_url,
                             json=request_bodies['POST']
                             )
     statuscode = response.status_code
