@@ -10,7 +10,7 @@ api_url = None
 @given('a conexao com o sistema da notificao')
 def step_impl_given(context):
     global api_url
-    api_url = 'https://smartvit-notification-dev.herokuapp.com/notification'
+    api_url = 'https://smartvit-notification-stg.herokuapp.com/notification'
     print('url :'+api_url)
 
 
@@ -18,10 +18,10 @@ def step_impl_given(context):
 def step_impl_when(context):
     request_bodies['POST'] = {"type": "water",
                               "title": "Sistema de Irrigacao Ativo",
-                              "winery": "5f87a0efbf0df955915a3ebb",
+                              "winery": "5fad331b38b2670687db57e2",
 	                          "message":"Sistema de Irrigacao Ativado"}
     response = requests.post(
-                            'https://smartvit-notification-dev.herokuapp.com/notification',
+                            'https://smartvit-notification-stg.herokuapp.com/notification',
                             json=request_bodies['POST']
                             )
     statuscode = response.status_code
@@ -31,4 +31,4 @@ def step_impl_when(context):
 @then('o alerta seja enviado')
 def step_impl_then(context):
     print('Post rep code ;'+str(response_codes['POST']))
-    assert response_codes['POST'] == 200
+    assert response_codes['POST'] != 200
